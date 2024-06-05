@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="GrabCourseDataFromAPI()">Grab Course data</button>
+    <select  id="dropdown"></select>
+    <script>
+        window.onload = () =>  {
+            GrabCourseDataFromAPI();
+        }
+        function GrabCourseDataFromAPI() {
+            fetch('http://localhost:8081/api/courses')
+                .then((response) => response.json()
+                .then((data) => GenerateDropdown(data))
+
+    )
+        }
+
+    
+    function GenerateDropdown(data){
+        const dropdown = document.getElementById("dropdown");
+        const fragment = document.createDocumentFragment();
+      data.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.courseName;
+        option.text= `${item.courseName} `;
+        fragment.appendChild(option);
+      });
+      dropdown.appendChild(fragment);
+    }
+
+
+  
+   
+    </script>
+</body>
+</html>
